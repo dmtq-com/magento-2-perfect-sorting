@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Model\Config">
+        <plugin name="catalog_add_custom_options_plugin" type="DMTQ\PerfectSorting\Plugin\Model\Config"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
+        <plugin name="catalog_product_list_toolbar_plugin" type="DMTQ\PerfectSorting\Plugin\Product\ProductList\Toolbar"/>
+    </type>
+    <virtualType name="additionalFieldsProviderForElasticsearch"
+                 type="Magento\AdvancedSearch\Model\Adapter\DataMapper\AdditionalFieldsProvider">
+        <arguments>
+            <argument name="fieldsProviders" xsi:type="array">
+                <item name="custom_sorting" xsi:type="object">
+                    \DMTQ\PerfectSorting\Model\Adapter\BatchDataMapper\CustomDataProvider
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DMTQ\PerfectSorting\Model\Catalog\Sorting\BestSellers" type="Magento\PageBuilder\Model\Catalog\Sorting\SimpleOption">
+        <arguments>
+            <argument name="label" xsi:type="string">Best Sellers</argument>
+            <argument name="sortDirection" xsi:type="const">\Magento\Framework\DB\Select::SQL_DESC</argument>
+            <argument name="attributeField" xsi:type="string">best_sellers</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\PageBuilder\Model\Catalog\Sorting">
+        <arguments>
+            <argument name="sortClasses" xsi:type="array">
+                <item name="best_sellers" xsi:type="string">DMTQ\PerfectSorting\Model\Catalog\Sorting\BestSellers</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

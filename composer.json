@@ -1,0 +1,21 @@
+{
+    "name": "dmtq/module-perfect-sorting",
+    "description": "Core",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "minimum-stability": "dev",
+    "version": "1.0.0",
+    "require": {
+        "php": "~8.1.0||~8.2.0",
+        "magento/framework": "*",
+        "dmtq/module-core": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "DMTQ\\PerfectSorting\\": ""
+        }
+    }
+}
