@@ -1,6 +1,6 @@
 {
     "name": "dmtq/module-perfect-sorting",
-    "description": "Core",
+    "description": "Magento 2 product listings utilize Elasticsearch for efficient sorting, with sorting options including Newest, Best Sellers, Stock Quantity, Discount, Price Low to High, and Price High to Low.",
     "type": "magento2-module",
     "license": "GPL-3.0",
     "minimum-stability": "dev",
