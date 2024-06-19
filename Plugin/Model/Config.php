@@ -39,11 +39,12 @@ class Config
         $options['position'] = __('Recommended');
         $customOption[self::NEWEST_SORTING_SORT_KEY] = __('Newest');
         $customOption[self::BEST_SELLERS_SORTING_SORT_KEY] = __('Best Sellers');
-        $customOption[self::STOCK_QTY_SORT_KEY] = __('Stock Quantity');
-        $customOption[self::DISCOUNT_SORT_KEY] = __('Discount');
+        // $customOption[self::STOCK_QTY_SORT_KEY] = __('Stock Quantity');
+        // $customOption[self::DISCOUNT_SORT_KEY] = __('Discount');
         $customOption[self::PRICE_LOW_TO_HIGH_SORT_KEY] = __('Price Low to High');
         $customOption[self::PRICE_HIGH_TO_LOW_SORT_KEY] = __('Price High to Low');
         unset($options['name']);
+        unset($options['price']);
         return array_merge($options,$customOption);
     }
 }
