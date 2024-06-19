@@ -186,20 +186,10 @@ class CustomDataProvider implements AdditionalFieldsProviderInterface
      */
     protected function sortPriceHighToLow($products): array
     {
-        $prices = [];
-        foreach ($products as $id => $price) {
-            $prices[] = ['id' => $id, 'price' => $price];
-        }
-
-        usort($prices, function ($a, $b) {
-            return $b['price'] - $a['price'];
-        });
-
         $sorted = [];
-        foreach ($prices as $index => $item) {
-            $sorted[$item['id']] = $index + 1;
+        foreach ($products as $id => $price) {
+            $sorted[$id] = 1000000 - $price;
         }
-
         return $sorted;
     }
 }
