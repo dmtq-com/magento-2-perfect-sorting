@@ -173,7 +173,7 @@ class CustomDataProvider implements AdditionalFieldsProviderInterface
             $prices = $connection->fetchAll($select);
             foreach ($prices as $row) {
                 $finalPrice = $row['final_price'];
-                $priceData[$row['entity_id']] = $finalPrice;
+                $priceData[$row['entity_id']] = (int)$finalPrice;
             }
         }
 
