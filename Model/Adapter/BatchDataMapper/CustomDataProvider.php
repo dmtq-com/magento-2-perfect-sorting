@@ -166,14 +166,14 @@ class CustomDataProvider implements AdditionalFieldsProviderInterface
 
         foreach ($batches as $batch) {
             $select = $connection->select()
-                ->from($tableName, ['entity_id', 'price', 'final_price'])
+                ->from($tableName, ['entity_id', 'price', 'min_price'])
                 ->where('entity_id IN (?)', $batch)
                 ->where('website_id = ?', $websiteID);
 
             $prices = $connection->fetchAll($select);
             foreach ($prices as $row) {
-                $finalPrice = $row['final_price'];
-                $priceData[$row['entity_id']] = (int)$finalPrice;
+                $minPrice = $row['min_price'];
+                $priceData[$row['entity_id']] = (int)$minPrice;
             }
         }
 
@@ -193,3 +193,4 @@ class CustomDataProvider implements AdditionalFieldsProviderInterface
         return $sorted;
     }
 }
+
