@@ -49,7 +49,7 @@ class CustomDataProvider implements AdditionalFieldsProviderInterface
     public function getFields(array $productIds, $storeId): array
     {
         $fields = [];
-        $besetSellersData = $this->getBestSellersData();
+        $besetSellersData = $this->getBestSellersData($storeId);
         $stockQtyData = $this->getStockQtyData($productIds);
         $discountRates = $this->getDiscountRates($productIds, $storeId);
         $priceData = $this->getPriceData($productIds, $storeId);
@@ -70,14 +70,30 @@ class CustomDataProvider implements AdditionalFieldsProviderInterface
     }
 
     /**
+     * @param $storeId
      * @return array
      */
-    protected function getBestSellersData(): array
+    public function getBestSellersData($storeId): array
     {
-        $bestsellersCollection = $this->bestSellersCollectionFactory->create();
+        $connection = $this->resourceConnection->getConnection();
+        $tableName = $connection->getTableName('sales_order_item');
         $bestsellersData = [];
-        foreach ($bestsellersCollection as $bestseller) {
-            $bestsellersData[$bestseller->getProductId()] = $bestseller->getQtyOrdered();
+        $select = $connection->select()
+            ->from(
+                $tableName,
+                [
+                    'store_id',
+                    'product_id',
+                    'total_qty' => new \Zend_Db_Expr('SUM(qty_ordered)')
+                ]
+            )
+            ->where('store_id = ?', $storeId)
+            ->where('created_at >= DATE_SUB(NOW(), INTERVAL 180 DAY)')
+            ->group(['store_id', 'product_id']);
+
+        $rows = $connection->fetchAll($select);
+        foreach ($rows as $row) {
+            $bestsellersData[$row['product_id']] = (int)$row['total_qty'];
         }
         return $bestsellersData;
     }
@@ -193,4 +209,5 @@ class CustomDataProvider implements AdditionalFieldsProviderInterface
         return $sorted;
     }
 }
+
 
