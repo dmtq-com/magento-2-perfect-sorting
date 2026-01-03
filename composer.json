@@ -4,7 +4,7 @@
     "type": "magento2-module",
     "license": "GPL-3.0",
     "minimum-stability": "dev",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "require": {
         "magento/framework": "*",
         "dmtq/module-core": "*"
@@ -18,5 +18,6 @@
         }
     }
 }
+
 
 
